@@ -1,8 +1,8 @@
 package web.repository;
 
 import web.model.User;
-
 import java.util.List;
+
 
 public interface UserRepo {
     List<User> getAllUsers();
