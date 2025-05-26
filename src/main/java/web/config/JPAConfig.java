@@ -1,5 +1,6 @@
 package web.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -20,15 +21,21 @@ import java.util.Properties;
 
 @Configuration
 @PropertySource("classpath:db.properties")
+@PropertySource("classpath:application.properties")
 @EnableTransactionManagement
 @ComponentScan("web")
 public class JPAConfig {
+
+    @Autowired
+    private Environment env;
+
 
     private final Environment environment;
 
     public JPAConfig(Environment environment) {
         this.environment = environment;
     }
+
 
     @Bean
     public DataSource dataSource() {
@@ -43,7 +50,8 @@ public class JPAConfig {
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(dataSource);
+        em.setDataSource(dataSource());
+        em.setPackagesToScan(env.getRequiredProperty("db.entity.package"));
         em.setPackagesToScan(environment.getRequiredProperty("db.entity.package")); // Гибче, чем хардкод
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         em.setJpaProperties(hibernateProperties());
