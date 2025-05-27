@@ -30,14 +30,9 @@ public class AppInit extends AbstractAnnotationConfigDispatcherServletInitialize
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         super.onStartup(servletContext);
-    //    registerHiddenHttpMethodFilter(servletContext);
         registerCharacterEncodingFilter(servletContext);
     }
 
-//    private void registerHiddenHttpMethodFilter(ServletContext context) {
-//        context.addFilter("hiddenHttpMethodFilter", new HiddenHttpMethodFilter())
-//                .addMappingForUrlPatterns(null, true, "/*");
-//    }
 
     private void registerCharacterEncodingFilter(ServletContext context) {
         EnumSet<DispatcherType> dispatcherTypes = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD);

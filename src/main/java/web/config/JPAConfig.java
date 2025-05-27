@@ -46,6 +46,7 @@ public class JPAConfig {
 
         dataSource.setUsername(env.getRequiredProperty("db.username"));
         dataSource.setPassword(env.getRequiredProperty("db.password"));
+        dataSource.setUrl(dbUrl);
         return dataSource;
 
     }
