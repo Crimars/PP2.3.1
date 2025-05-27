@@ -21,7 +21,7 @@ public class User {
     private String lastName;
 
     @Positive(message = "Возраст должен быть положительным")
-    @Max(value = 100, message = "Возраст не может быть больше 100 лет")
+    @Max(value = 100, message = "Возраст не может быть больше 120 лет")
     private Byte age;
 
     public User() {
